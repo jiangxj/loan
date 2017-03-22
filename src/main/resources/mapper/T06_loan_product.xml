@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.soumoney.loan.mapper.T06_loan_productMapper">
+    <select id="findT06_loan_productList" parameterType="net.soumoney.loan.dto.T06_loan_product" resultType="net.soumoney.loan.dto.T06_loan_product">
+        select pid,logo,title,product_desc,max_money,money_desc,advantage,feature,rate,fastest,fastest_type,duration,flow,conditions,material,createdate,type,seq from t06_loan_product where is_show = '1'
+        <if test="type != null">
+            and type = #{type}
+        </if>
+        <if test="is_recommnet != null">
+            and is_recommnet = #{is_recommnet}
+        </if>
+        <if test="is_hot != null">
+            and is_hot = #{is_hot}
+        </if>
+
+        <if test="money_limit != null">
+            and money_limit = #{money_limit}
+        </if>
+    </select>
+</mapper>

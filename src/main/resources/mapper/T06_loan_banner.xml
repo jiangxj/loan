@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.soumoney.loan.mapper.T06_loan_bannerMapper">
+    <select id="findT06_loan_bannerList" resultType="net.soumoney.loan.dto.T06_loan_banner">
+        select * from t06_loan_banner where is_show = '1' limit 6
+    </select>
+</mapper>
