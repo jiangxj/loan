@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,7 +56,7 @@ public class LoanProductController {
 
     @ResponseBody
     @RequestMapping("/banners")
-    public String bannerList(){
+    public String bannerList(HttpServletResponse response){
         Map<String, Object> resultMap = new HashMap();
         try {
             List list = loanProductService.bannerList();
@@ -67,6 +68,7 @@ public class LoanProductController {
             resultMap.put("statusCode", 1);
             resultMap.put("statusMsg", "error");
         }
+        response.addHeader("Access-Control-Allow-Origin", "*");
         return new Gson().toJson(resultMap);
     }
 
