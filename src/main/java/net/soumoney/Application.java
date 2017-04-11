@@ -1,34 +1,38 @@
 package net.soumoney;
 
-import net.soumoney.common.GlobalFilter;
-import net.soumoney.common.GlobalInterceptor;
+import net.soumoney.common.AuthInterceptor;
+import net.soumoney.common.CurrentUserMethodArgumentResolver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import java.util.List;
 
 /**
  * Created by jiangxiaojie on 2017/3/21.
  */
 @SpringBootApplication
 public class Application extends WebMvcConfigurerAdapter {
+    @Autowired
+    AuthInterceptor authInterceptor;
+    @Autowired
+    CurrentUserMethodArgumentResolver currentUserMethodArgumentResolver;
+
     public static void main(String[] args){
         SpringApplication.run(Application.class, args);
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new GlobalInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(authInterceptor).addPathPatterns("/**");
     }
 
-    @Bean
-    public FilterRegistrationBean addFilter(){
-        FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(new GlobalFilter());
-        registration.addUrlPatterns("/*");
-        registration.setOrder(1);
-        return registration;
+    @Override
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+        argumentResolvers.add(currentUserMethodArgumentResolver);
     }
+
 }

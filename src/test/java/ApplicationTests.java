@@ -1,13 +1,11 @@
 import net.soumoney.Application;
-import net.soumoney.loan.dto.T06_loan_product;
-import net.soumoney.loan.mapper.T06_loan_productMapper;
+import net.soumoney.redis.RedisService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.List;
+import redis.clients.jedis.JedisPoolConfig;
 
 /**
  * Created by jiangxiaojie on 2017/3/21.
@@ -16,8 +14,4 @@ import java.util.List;
 @SpringBootTest(classes = Application.class)
 public class ApplicationTests {
 
-    @Test
-    public void findT06_loan_productList(){
-
-    }
 }

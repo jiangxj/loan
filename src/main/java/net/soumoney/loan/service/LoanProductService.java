@@ -21,9 +21,6 @@ public class LoanProductService {
     @Autowired
     T06_loan_bannerMapper t06_loan_bannerMapper;
 
-    @Autowired
-    T00_dictMapper t00_dictMapper;
-
     public List hotList(){
         T06_loan_product loan_product = new T06_loan_product();
         loan_product.setIs_hot("1");
@@ -49,6 +46,10 @@ public class LoanProductService {
         loan_product.setIs_show("1");
         loan_product.setType(type);
         return t06_loan_productMapper.findT06_loan_productList(loan_product);
+    }
+
+    public T06_loan_product productDetail(String pid){
+        return t06_loan_productMapper.findT06_loan_productByPID(pid);
     }
 
 }

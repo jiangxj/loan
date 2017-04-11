@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.soumoney.loan.mapper.T06_credit_cardMapper">
+    <select id="findT06_credit_cardList" resultType="net.soumoney.loan.dto.T06_credit_card">
+        select * from t06_credit_card where is_hot = '1'
+    </select>
+</mapper>

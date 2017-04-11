@@ -3,7 +3,7 @@
 <mapper namespace="net.soumoney.loan.mapper.T06_loan_productMapper">
     <select id="findT06_loan_productList" parameterType="net.soumoney.loan.dto.T06_loan_product" resultType="net.soumoney.loan.dto.T06_loan_product">
         select pid,logo,title,product_desc,loanable,loanable_desc,money_limit,advantage,feature,rate,fastest,fastest_type,duration,flow,conditions,material,createdate,type,seq from t06_loan_product where is_show = '1'
-        <if test="type != null">
+        <if test="type != null and type != ''">
             and type = #{type}
         </if>
         <if test="is_recommnet != null">
@@ -13,8 +13,11 @@
             and is_hot = #{is_hot}
         </if>
 
-        <if test="money_limit != null">
+        <if test="money_limit != null and money_limit != ''">
             and money_limit = #{money_limit}
         </if>
+    </select>
+    <select id="findT06_loan_productByPID" parameterType="java.lang.String" resultType="net.soumoney.loan.dto.T06_loan_product">
+        select t1.*,t2.name,t2.statement from t06_loan_product t1, t06_customer t2 where t1.platformid = t2.cid and  t1.pid = #{_parameter}
     </select>
 </mapper>

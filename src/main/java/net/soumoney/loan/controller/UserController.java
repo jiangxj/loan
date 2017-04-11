@@ -1,9 +1,11 @@
 package net.soumoney.loan.controller;
 
 import com.google.gson.Gson;
-import net.soumoney.loan.dto.T06_loan_product;
-import net.soumoney.loan.service.DictService;
-import net.soumoney.loan.service.LoanProductService;
+import net.soumoney.common.token.Authorization;
+import net.soumoney.common.token.CurrentUser;
+import net.soumoney.loan.dto.T03_user;
+import net.soumoney.loan.service.FaqService;
+import net.soumoney.loan.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,22 +17,21 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by jiangxiaojie on 2017/3/22.
+ * Created by jiangxiaojie on 2017/3/27.
  */
 @RestController
-@RequestMapping("/product")
-public class LoanProductController {
+@RequestMapping("/user")
+public class UserController {
     @Autowired
-    LoanProductService loanProductService;
-    @Autowired
-    DictService dictService;
+    UserService userService;
 
+    @Authorization
     @ResponseBody
-    @RequestMapping("/hot")
-    public String hotList(){
+    @RequestMapping("/applylist")
+    public String userApplyList(@CurrentUser T03_user user){
         Map<String, Object> resultMap = new HashMap();
         try {
-            List list = loanProductService.hotList();
+            List list = userService.findUserApplyListByTelephone(user.getTelephone());
             resultMap.put("datalist", list);
             resultMap.put("statusCode", 0);
             resultMap.put("statusMsg", "success");
@@ -42,12 +43,30 @@ public class LoanProductController {
         return new Gson().toJson(resultMap);
     }
 
+    @Authorization
     @ResponseBody
-    @RequestMapping("/recommend")
-    public String recommendList(){
+    @RequestMapping("/apply")
+    public String userApply(@CurrentUser T03_user user, String pid){
         Map<String, Object> resultMap = new HashMap();
         try {
-            List list = loanProductService.recommendList();
+            userService.apply(user.getTelephone(), pid);
+            resultMap.put("statusCode", 0);
+            resultMap.put("statusMsg", "success");
+        }catch (Exception e){
+            e.printStackTrace();
+            resultMap.put("statusCode", 1);
+            resultMap.put("statusMsg", "error");
+        }
+        return new Gson().toJson(resultMap);
+    }
+
+    @Authorization
+    @ResponseBody
+    @RequestMapping("/collectlist")
+    public String userCollectList(@CurrentUser T03_user user){
+        Map<String, Object> resultMap = new HashMap();
+        try {
+            List list = userService.findUserCollectListByTelephone(user.getTelephone());
             resultMap.put("datalist", list);
             resultMap.put("statusCode", 0);
             resultMap.put("statusMsg", "success");
@@ -59,13 +78,13 @@ public class LoanProductController {
         return new Gson().toJson(resultMap);
     }
 
+    @Authorization
     @ResponseBody
-    @RequestMapping("/banners")
-    public String bannerList(){
+    @RequestMapping("/collect")
+    public String userCollect(@CurrentUser T03_user user, String pid){
         Map<String, Object> resultMap = new HashMap();
         try {
-            List list = loanProductService.bannerList();
-            resultMap.put("datalist", list);
+            userService.collect(user.getTelephone(), pid);
             resultMap.put("statusCode", 0);
             resultMap.put("statusMsg", "success");
         }catch (Exception e){
@@ -76,54 +95,4 @@ public class LoanProductController {
         return new Gson().toJson(resultMap);
     }
 
-    @ResponseBody
-    @RequestMapping("/list")
-    public String allList(String type, String money_limit){
-        Map<String, Object> resultMap = new HashMap();
-        try {
-            List list = loanProductService.allList(type, money_limit);
-            resultMap.put("datalist", list);
-            resultMap.put("statusCode", 0);
-            resultMap.put("statusMsg", "success");
-        }catch (Exception e){
-            e.printStackTrace();
-            resultMap.put("statusCode", 1);
-            resultMap.put("statusMsg", "error");
-        }
-        return new Gson().toJson(resultMap);
-    }
-
-    @ResponseBody
-    @RequestMapping("/conditions")
-    public String allConditions(String disctype){
-        Map<String, Object> resultMap = new HashMap();
-        try {
-            List list = dictService.allConditions(disctype);
-            resultMap.put("datalist", list);
-            resultMap.put("statusCode", 0);
-            resultMap.put("statusMsg", "success");
-        }catch (Exception e){
-            e.printStackTrace();
-            resultMap.put("statusCode", 1);
-            resultMap.put("statusMsg", "error");
-        }
-        return new Gson().toJson(resultMap);
-    }
-
-    @ResponseBody
-    @RequestMapping("/detail")
-    public String detail(String pid){
-        Map<String, Object> resultMap = new HashMap();
-        try {
-            T06_loan_product prod = loanProductService.productDetail(pid);
-            resultMap.put("prod", prod);
-            resultMap.put("statusCode", 0);
-            resultMap.put("statusMsg", "success");
-        }catch (Exception e){
-            e.printStackTrace();
-            resultMap.put("statusCode", 1);
-            resultMap.put("statusMsg", "error");
-        }
-        return new Gson().toJson(resultMap);
-    }
 }

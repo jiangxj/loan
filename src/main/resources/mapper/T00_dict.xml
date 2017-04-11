@@ -3,10 +3,10 @@
 <mapper namespace="net.soumoney.loan.mapper.T00_dictMapper">
     <select id="findT00_dictList" parameterType="net.soumoney.loan.dto.T00_dict" resultType="net.soumoney.loan.dto.T00_dict">
         select * from t00_dict where flag = '1'
-        <if test="disctype != null">
+        <if test="disctype != null and disctype != ''">
             and disctype = #{disctype}
         </if>
-        <if test="disckey != null">
+        <if test="disckey != null and disckey != ''">
             and disckey = #{disckey}
         </if>
     </select>

@@ -13,4 +13,5 @@ import java.util.List;
 @Repository
 public interface T06_loan_productMapper {
     public List<T06_loan_product> findT06_loan_productList(T06_loan_product loan_product);
+    public T06_loan_product findT06_loan_productByPID(String pid);
 }

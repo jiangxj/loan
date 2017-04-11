@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.soumoney.loan.mapper.T03_userMapper">
+    <select id="findT03_userByTelephone" parameterType="java.lang.String" resultType="net.soumoney.loan.dto.T03_user">
+        select * from t03_user where telephone = #{_parameter}
+    </select>
+    <insert id="insertT03_user" parameterType="net.soumoney.loan.dto.T03_user">
+        insert into t03_user(uid, telephone, createdate, flag) values(#{uid}, #{telephone}, #{createdate}, #{flag})
+    </insert>
+    <select id="findT03_userByUid" parameterType="java.lang.String" resultType="net.soumoney.loan.dto.T03_user">
+        select * from t03_user where uid = #{_parameter}
+    </select>
+
+</mapper>

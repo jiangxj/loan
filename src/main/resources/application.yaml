@@ -5,9 +5,15 @@ spring:
     password: mengkefmp
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-  jps:
-    showsql: true
+  redis:
+    host: 139.196.170.116
+    hostName: m.soumoney.net
+    password: fengjiefengjie
+    port: 6379
+    database: 0
 server:
   port: 9080
+  context-path: /loan
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+

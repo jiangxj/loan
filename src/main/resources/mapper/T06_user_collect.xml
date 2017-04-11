@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.soumoney.loan.mapper.T06_user_collectMapper">
+    <select id="findT06_user_collectListByTelephone" parameterType="java.lang.String" resultType="net.soumoney.loan.dto.T06_loan_product">
+        select t1.* from t06_loan_product t1, t06_user_collect t2, t03_user t3 where t1.pid = t2.businesskey and t2.uid = t3.uid and t3.telephone = #{_parameter}
+    </select>
+    <insert id="insertT06_user_collect" parameterType="net.soumoney.loan.dto.T06_loan_product">
+        insert into t06_user_collect(cid, businesskey, createdate, uid) values(#{cid}, #{businesskey}, #{createdate}, #{uid})
+    </insert>
+</mapper>

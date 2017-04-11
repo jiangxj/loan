@@ -27,6 +27,12 @@ public class T06_loan_product{
     private String is_hot;
     private int seq;
     private String money_limit;
+    private String status;
+    private String platformid;
+    private int star;
+    private String statement;
+    private String name;
+    private String url;
 
     public String getPid() {
         return pid;
@@ -202,5 +208,53 @@ public class T06_loan_product{
 
     public void setMoney_limit(String money_limit) {
         this.money_limit = money_limit;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getPlatformid() {
+        return platformid;
+    }
+
+    public void setPlatformid(String platformid) {
+        this.platformid = platformid;
+    }
+
+    public int getStar() {
+        return star;
+    }
+
+    public void setStar(int star) {
+        this.star = star;
+    }
+
+    public String getStatement() {
+        return statement;
+    }
+
+    public void setStatement(String statement) {
+        this.statement = statement;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
